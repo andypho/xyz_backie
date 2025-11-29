@@ -54,7 +54,7 @@ defmodule XyzBackie.Forum.PostTest do
       changeset = Post.changeset(%Post{}, params)
 
       refute changeset.valid?
-      assert "should be at most 10000 character(s)" in errors_on(changeset).content
+      assert "Content should be less than 10,000 characters long" in errors_on(changeset).content
     end
 
     test "Test empty content" do

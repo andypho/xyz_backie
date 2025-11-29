@@ -27,6 +27,9 @@ defmodule XyzBackie.Forum.Post do
     post
     |> cast(params, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
-    |> validate_length(:content, max: @max_content_length)
+    |> validate_length(:content,
+      max: @max_content_length,
+      message: "Content should be less than 10,000 characters long"
+    )
   end
 end

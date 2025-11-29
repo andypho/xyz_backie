@@ -35,7 +35,7 @@ defmodule XyzBackie.Forum.ThreadTest do
       changeset = Thread.changeset(%Thread{}, params)
 
       refute changeset.valid?
-      assert "should be at most 140 character(s)" in errors_on(changeset).title
+      assert "Title should be at most 140 characters long" in errors_on(changeset).title
     end
 
     test "Test title trimming" do
@@ -89,7 +89,7 @@ defmodule XyzBackie.Forum.ThreadTest do
       {:error, changeset2} = Repo.insert(changeset2)
 
       refute changeset2.valid?
-      assert "has already been taken" in errors_on(changeset2).url_slug
+      assert "Title has already been taken" in errors_on(changeset2).url_slug
     end
   end
 end

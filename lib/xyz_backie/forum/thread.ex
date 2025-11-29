@@ -30,9 +30,12 @@ defmodule XyzBackie.Forum.Thread do
     |> cast(params, @required_fields ++ @optional_fields)
     |> update_change(:title, &String.trim/1)
     |> generate_slug()
-    |> unique_constraint(:url_slug)
+    |> unique_constraint(:url_slug, message: "Title has already been taken")
     |> validate_required(@required_fields)
-    |> validate_length(:title, max: @max_title_length)
+    |> validate_length(:title,
+      max: @max_title_length,
+      message: "Title should be at most #{@max_title_length} characters long"
+    )
   end
 
   def generate_slug(changeset) do
