@@ -175,7 +175,6 @@ defmodule XyzBackie.Forum do
     Thread
     |> order_by([t], desc: t.count)
     |> limit(^limit)
-    |> select([t], [:id, :title, :url_slug, :count])
     |> Repo.all()
     |> format_for_api()
   end
@@ -223,7 +222,8 @@ defmodule XyzBackie.Forum do
       id: Base.encode64("Thread:#{thread.id}"),
       title: thread.title,
       url_slug: thread.url_slug,
-      count: thread.count
+      count: thread.count,
+      timestamp: DateTime.truncate(thread.updated_at, :second)
     }
 
     if is_list(posts) do
@@ -236,7 +236,8 @@ defmodule XyzBackie.Forum do
   def format_for_api(%Post{} = post) do
     %{
       id: Base.encode64("Post:#{post.id}"),
-      content: post.content
+      content: post.content,
+      timestamp: DateTime.truncate(post.inserted_at, :second)
     }
   end
 end
