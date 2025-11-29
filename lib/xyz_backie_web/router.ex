@@ -20,6 +20,22 @@ defmodule XyzBackieWeb.Router do
     get "/", PageController, :home
   end
 
+  scope "/api", XyzBackieWeb do
+    pipe_through :api
+
+    # List top threads
+    get "/threads", ThreadController, :index
+
+    # Get thread by `url_slug`
+    get "/threads/:url_slug", ThreadController, :show
+
+    # Create new thread
+    post "/threads", ThreadController, :create
+
+    # Update a thread with a new post
+    put "/threads/:url_slug", ThreadController, :update
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", XyzBackieWeb do
   #   pipe_through :api
