@@ -28,7 +28,7 @@ defmodule XyzBackie.Forum do
 
   @thread_limit 10
 
-  @spec get_thread_by_id(Integer.t()) :: {:ok, Thread.t()} | {:error, :not_found}
+  @spec get_thread_by_id(integer()) :: {:ok, Thread.t()} | {:error, :not_found}
   def get_thread_by_id(id) do
     Thread
     |> where(id: ^id)
@@ -119,7 +119,7 @@ defmodule XyzBackie.Forum do
       iex> Forum.update_thread("hello-world", %{content: "invalid content"})
       {:error, :update_failed}
   """
-  @spec update_thread(String.t(), map()) :: {:ok, map()} | {:error, :update_failed}
+  @spec update_thread(String.t(), map()) :: {:ok, thread_view()} | {:error, :update_failed}
   def update_thread(url_slug, params) do
     with {:ok, thread} <- get_thread_by_url_slug(url_slug),
          {:ok, %{thread: thread}} <- update_thread_post(thread, params) do
