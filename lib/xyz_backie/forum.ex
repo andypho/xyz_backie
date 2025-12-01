@@ -123,7 +123,9 @@ defmodule XyzBackie.Forum do
   def update_thread(url_slug, params) do
     with {:ok, thread} <- get_thread_by_url_slug(url_slug),
          {:ok, %{thread: thread}} <- update_thread_post(thread, params) do
-      {:ok, format_for_api(thread)}
+      {:ok,
+       format_for_api(thread)
+       |> tap(&__MODULE__.Cache.update_thread(&1))}
     else
       _ ->
         {:error, :update_failed}

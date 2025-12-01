@@ -14,6 +14,7 @@ defmodule XyzBackie.Application do
       {Phoenix.PubSub, name: XyzBackie.PubSub},
       # Start a worker by calling: XyzBackie.Worker.start_link(arg)
       # {XyzBackie.Worker, arg},
+      {XyzBackie.Forum.Cache, []},
       # Start to serve requests, typically the last entry
       XyzBackieWeb.Endpoint
     ]
